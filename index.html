@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IAContec — Automação para Negócios Locais</title>
+
+  <!-- ════════════════════════════════════════════
+       GOOGLE TAG MANAGER
+       Troque GTM-XXXXXXX pelo seu ID do GTM
+  ════════════════════════════════════════════ -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <!-- Fim GTM -->
+
+  <!-- ════════════════════════════════════════════
+       GOOGLE ANALYTICS 4 (GA4)
+       Troque G-XXXXXXXXXX pelo seu ID de medição
+  ════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- Fim GA4 -->
+
+  <!-- ════════════════════════════════════════════
+       META PIXEL (Facebook/Instagram Ads)
+       Troque SEU_PIXEL_ID pelo ID do seu Pixel
+  ════════════════════════════════════════════ -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=SEU_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+  <!-- Fim Meta Pixel -->
+
+  <!-- ════════════════════════════════════════════
+       MICROSOFT CLARITY (heatmap gratuito)
+       Troque SEU_CLARITY_ID pelo seu Project ID
+  ════════════════════════════════════════════ -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "SEU_CLARITY_ID");
+  </script>
+  <!-- Fim Clarity -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #FAF9F7;
+      --bg2:         #F0EDE7;
+      --bg3:         #FFFFFF;
+      --accent:      #D97757;
+      --accent-light:#7B331C;
+      --accent-dark: #7B331C;
+      --glow:        rgba(217,119,87,0.3);
+      --text:        #1A1918;
+      --muted:       #6b5e54;
+      --border:      rgba(26,25,24,0.1);
+      --radius:      14px;
+      --gradient:    linear-gradient(165deg, #7B331C, #D97757, #ECBAAA);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 6vw;
+      background: rgba(250,249,247,0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    .nav-cta {
+      background: var(--gradient);
+      color: #fff; border: none; cursor: pointer;
+      padding: 10px 22px; border-radius: 8px;
+      font-family: inherit; font-size: 0.875rem; font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { box-shadow: 0 0 22px var(--glow); transform: translateY(-1px); }
+
+    /* ── UTILITÁRIOS ── */
+    .section-wrap { padding: 100px 6vw; }
+    .section-wrap.alt { background: var(--bg2); }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 700; letter-spacing: -0.5px; line-height: 1.2;
+    }
+    h2 em { font-style: normal; color: var(--accent); }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gradient);
+      color: #fff; border: none; cursor: pointer;
+      padding: 16px 36px; border-radius: 10px;
+      font-family: inherit; font-size: 1rem; font-weight: 700;
+      transition: box-shadow 0.25s, transform 0.25s;
+      text-decoration: none;
+    }
+    .cta-btn:hover { box-shadow: 0 0 40px var(--glow); transform: translateY(-3px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 6vw 80px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(217,119,87,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      border: 1px solid rgba(217,119,87,0.5);
+      color: var(--accent-light);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px; margin-bottom: 28px;
+      background: rgba(217,119,87,0.08);
+    }
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 3.8rem);
+      font-weight: 700; line-height: 1.15; letter-spacing: -1px;
+      max-width: 840px;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      margin-top: 24px;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: var(--muted); max-width: 640px;
+    }
+    .hero-cta-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 40px; }
+    .hero-microcopy { font-size: 0.82rem; color: var(--muted); }
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.78rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ── PARA QUEM É ── */
+    #para-quem .checklist {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 16px;
+      margin: 40px 0 36px;
+    }
+    #para-quem .checklist li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 1.05rem; padding: 18px 22px;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+    #para-quem .checklist li:hover { border-color: rgba(217,119,87,0.35); }
+    #para-quem .checklist li::before {
+      content: '→';
+      color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .para-quem-close {
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      background: rgba(217,119,87,0.07);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 1rem; font-weight: 600; color: var(--accent-light);
+    }
+
+    /* ── PROBLEMA ── */
+    .problema-intro {
+      margin: 32px 0 24px;
+      font-size: 1.1rem; color: var(--muted); line-height: 1.75;
+    }
+    .problema-intro strong { color: var(--text); }
+    .pain-list {
+      list-style: none; display: flex; flex-direction: column; gap: 14px;
+      margin-bottom: 32px;
+    }
+    .pain-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 1rem; color: var(--text);
+    }
+    .pain-list li::before {
+      content: '✗'; color: var(--accent); font-size: 1rem; margin-top: 2px; flex-shrink: 0;
+    }
+    .pain-highlight {
+      padding: 24px 28px;
+      border-left: 3px solid var(--accent);
+      background: rgba(217,119,87,0.07);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 1.1rem; font-weight: 600;
+    }
+    .pain-highlight span { font-weight: 400; color: var(--muted); }
+
+    /* ── CREDIBILIDADE ── */
+    .founder-card {
+      margin-top: 48px;
+      padding: 40px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex; gap: 32px; align-items: flex-start;
+      position: relative; overflow: hidden;
+    }
+    .founder-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gradient);
+    }
+    .founder-icon {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .founder-text p { color: var(--muted); margin-top: 10px; line-height: 1.75; }
+    .founder-text .differentiator {
+      margin-top: 20px;
+      font-size: 1rem; font-weight: 700; color: var(--accent-light);
+    }
+
+    /* ── SERVIÇOS ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .service-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--gradient);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .service-card:hover { border-color: rgba(217,119,87,0.4); transform: translateY(-4px); }
+    .service-card:hover::after { opacity: 1; }
+    .service-icon { font-size: 2rem; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .service-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 12px; }
+    .service-result {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--accent-light);
+      padding: 6px 12px;
+      background: rgba(217,119,87,0.1);
+      border-radius: 6px; display: inline-block;
+    }
+    .service-result::before { content: '✓ '; }
+
+    /* ── COMO FUNCIONA ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .step {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 28px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: #fff;
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 700; }
+    .step p { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── POR QUE A IACONTEC ── */
+    .comparison-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 48px;
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .comparison-table th {
+      padding: 16px 22px; text-align: left;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .comparison-table th:first-child {
+      background: var(--bg3); color: var(--muted);
+    }
+    .comparison-table th:last-child {
+      background: var(--accent-dark); color: var(--accent-light);
+    }
+    .comparison-table td {
+      padding: 15px 22px; font-size: 0.92rem;
+      border-top: 1px solid var(--border);
+    }
+    .comparison-table td:first-child {
+      background: var(--bg3); color: var(--muted);
+    }
+    .comparison-table td:last-child {
+      background: rgba(123,51,28,0.2); color: var(--text); font-weight: 500;
+    }
+    .comparison-table td:last-child::before { content: '✓ '; color: var(--accent); }
+
+    /* ── OBJEÇÕES ── */
+    .objection-list { display: flex; flex-direction: column; gap: 16px; margin-top: 48px; }
+    .objection {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .objection-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px; cursor: pointer;
+      font-weight: 600; font-size: 0.98rem;
+      transition: color 0.2s;
+    }
+    .objection-q:hover { color: var(--accent-light); }
+    .objection-q::before { content: '"'; color: var(--accent); margin-right: 10px; font-size: 1.4rem; line-height: 1; }
+    .objection-q::after { content: '+'; color: var(--accent); font-size: 1.4rem; font-weight: 300; flex-shrink: 0; margin-left: 16px; transition: transform 0.3s; }
+    .objection.open .objection-q::after { transform: rotate(45deg); }
+    .objection-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      font-size: 0.92rem; color: var(--muted); line-height: 1.75;
+    }
+    .objection.open .objection-a { max-height: 200px; padding: 0 28px 22px; }
+
+    /* ── URGÊNCIA ── */
+    #urgencia {
+      background: var(--accent-dark);
+      padding: 72px 6vw;
+    }
+    #urgencia .inner { text-align: center; }
+    #urgencia .badge {
+      border-color: rgba(236,186,170,0.5);
+      color: #ECBAAA;
+      background: rgba(236,186,170,0.12);
+    }
+    #urgencia h2 { color: #FAF9F7; }
+    #urgencia h2 em { color: #ECBAAA !important; }
+    #urgencia p {
+      color: rgba(250,249,247,0.75);
+      margin-top: 16px; font-size: 1.05rem;
+      max-width: 620px; margin-left: auto; margin-right: auto;
+    }
+    .urgency-callout {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius);
+      border: 1px solid rgba(236,186,170,0.25);
+      font-size: 1rem; color: #ECBAAA;
+      font-style: italic; line-height: 1.7;
+    }
+
+    /* ── CTA FINAL ── */
+    #cta-final {
+      text-align: center;
+      padding: 120px 6vw;
+      position: relative; overflow: hidden;
+    }
+    #cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(217,119,87,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #cta-final .inner { max-width: 700px; margin: 0 auto; position: relative; }
+    #cta-final h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+    #cta-final .sub { color: var(--muted); margin-top: 16px; font-size: 1.05rem; }
+    #cta-final .microcopy { font-size: 0.82rem; color: var(--muted); margin-top: 12px; }
+    #cta-final .vagas {
+      display: inline-block; margin-top: 20px;
+      padding: 8px 18px; border-radius: 100px;
+      background: rgba(217,119,87,0.12);
+      border: 1px solid rgba(217,119,87,0.35);
+      font-size: 0.8rem; font-weight: 600; color: var(--accent-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px 6vw;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.82rem;
+    }
+    footer strong { color: var(--accent); }
+
+    /* ── ANIMAÇÕES ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .founder-card { flex-direction: column; }
+      .comparison-table { font-size: 0.82rem; }
+      .comparison-table th, .comparison-table td { padding: 12px 14px; }
+    }
+    @media (max-width: 480px) {
+      .services-grid, .steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- GTM noscript (obrigatório logo após <body>) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">IA<span>Contec</span></div>
+    <button class="nav-cta" onclick="document.getElementById('cta-final').scrollIntoView({behavior:'smooth'})">Diagnóstico gratuito</button>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="badge reveal">Automação para negócios locais</div>
+    <h1 class="reveal">Seu concorrente já está usando IA.<br><em>Você ainda tá no improviso?</em></h1>
+    <p class="hero-sub reveal">A IAContec é a única agência de automação criada por quem passou 30 anos dentro de negócio local. A gente não vende marketing. A gente instala estrutura — do primeiro clique ao cliente fiel.</p>
+    <div class="hero-cta-wrap reveal">
+      <a href="#cta-final" class="cta-btn">
+        Quero meu diagnóstico gratuito
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <span class="hero-microcopy">Sem compromisso. Sem contrato longo. Só resultado.</span>
+    </div>
+    <div class="hero-scroll">
+      <span>scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ═══ PARA QUEM É ═══ -->
+  <div id="para-quem" class="section-wrap alt">
+    <div class="inner">
+      <p class="section-label reveal">Para quem é</p>
+      <h2 class="reveal">Essa página é para você <em>se reconhece</em> nisto:</h2>
+      <ul class="checklist">
+        <li class="reveal">Você tem um negócio local e sente que está sempre apagando incêndio</li>
+        <li class="reveal">Você já investiu em marketing e não viu retorno</li>
+        <li class="reveal">Seus clientes compram uma vez e somem</li>
+        <li class="reveal">Você é o centro de tudo — se parar, o negócio para</li>
+        <li class="reveal">Você sabe que precisa de mudança, mas não sabe por onde começar</li>
+      </ul>
+      <div class="para-quem-close reveal">
+        Se você se reconheceu em pelo menos um desses pontos, continue lendo.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROBLEMA ═══ -->
+  <div id="problema" class="section-wrap">
+    <div class="inner">
+      <p class="section-label reveal">O problema</p>
+      <h2 class="reveal">Todo mês é a mesma história.</h2>
+      <div class="problema-intro reveal">
+        Você acorda cedo, trabalha até tarde, faz tudo certo dentro do seu negócio — e ainda assim sente que está andando em círculo.<br><br>
+        <strong>Sabe por quê?</strong> Porque trabalhar duro não substitui ter sistema.<br><br>
+        Enquanto você resolve o dia a dia no improviso:
+      </div>
+      <ul class="pain-list">
+        <li class="reveal">Clientes que compraram uma vez não voltam — porque ninguém foi atrás</li>
+        <li class="reveal">Seu nome não aparece no Google — e o concorrente aparece</li>
+        <li class="reveal">Você gasta com anúncio sem saber o que funcionou</li>
+        <li class="reveal">Sua equipe depende de você para cada decisão</li>
+        <li class="reveal">Você não tem tempo para crescer porque está ocupado demais sobrevivendo</li>
+      </ul>
+      <div class="pain-highlight reveal">
+        Isso não é falta de esforço. É falta de estrutura.<br>
+        <span>E estrutura não aparece sozinha.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CREDIBILIDADE ═══ -->
+  <div id="credibilidade" class="section-wrap alt">
+    <div class="inner">
+      <p class="section-label reveal">Por que a IAContec</p>
+      <h2 class="reveal">Quem fala aqui <em>não aprendeu</em> isso em curso.</h2>
+      <div class="founder-card reveal">
+        <div class="founder-icon">👤</div>
+        <div class="founder-text">
+          <p>Nosso fundador passou <strong>30 anos como empreendedor em negócios locais</strong>. Viveu cada uma dessas dores na pele — o mês no vermelho, o cliente que sumiu, o anúncio que não voltou, a equipe que dependia dele para tudo.</p>
+          <p>Foi por isso que criou a IAContec. Não para vender post de Instagram. Mas para dar ao pequeno negócio a mesma estrutura que as grandes empresas sempre tiveram — agora possível com inteligência artificial e automação.</p>
+          <p class="differentiator">A diferença entre nós e qualquer outra agência: a gente sabe exatamente onde dói. Porque já doeu em nós.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SERVIÇOS ═══ -->
+  <div id="servicos" class="section-wrap">
+    <div class="inner">
+      <p class="section-label reveal">O que fazemos</p>
+      <h2 class="reveal">Automação total. Do primeiro clique ao <em>cliente fiel</em>.</h2>
+      <p class="reveal" style="color:var(--muted);margin-top:16px;">Não trabalhamos com solução genérica. Cada negócio recebe o que precisa, no momento certo.</p>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Presença Digital que Vende</h3>
+          <p>Site profissional, SEO local e Google Meu Negócio otimizado.</p>
+          <span class="service-result">Seu cliente te acha antes do concorrente</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📣</div>
+          <h3>Tráfego que Converte</h3>
+          <p>Anúncios pagos no Meta e Google com estratégia real, não achismo.</p>
+          <span class="service-result">Cada real investido rastreado e otimizado</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3>Prospecção Ativa</h3>
+          <p>Seu negócio vai atrás do cliente — não fica esperando.</p>
+          <span class="service-result">Pipeline previsível de novos clientes todo mês</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔁</div>
+          <h3>Retenção e Follow-up</h3>
+          <p>Sequências automáticas de pós-venda, reativação e relacionamento.</p>
+          <span class="service-result">Cliente que comprou uma vez vira recorrente</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Sistemas Sob Medida</h3>
+          <p>Automações personalizadas para o seu tipo de negócio.</p>
+          <span class="service-result">Processos que funcionam sem você presente</span>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏗️</div>
+          <h3>Processos Internos</h3>
+          <p>Organização da operação para sua equipe funcionar sem depender de você.</p>
+          <span class="service-result">Você faz o que só você pode. O resto roda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ COMO FUNCIONA ═══ -->
+  <div id="como-funciona" class="section-wrap alt">
+    <div class="inner">
+      <p class="section-label reveal">O processo</p>
+      <h2 class="reveal">Sem burocracia. <em>Sem proposta genérica.</em></h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Diagnóstico Gratuito</h3>
+          <p>Entendemos onde seu negócio está hoje, onde está travado e o que precisa mudar primeiro.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Plano Personalizado</h3>
+          <p>Montamos o que faz sentido para o seu momento — sem vender o que você não precisa.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Implementação</h3>
+          <p>A gente executa. Você opera seu negócio. Sem precisar entender de tecnologia.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">4</div>
+          <h3>Escala com Controle</h3>
+          <p>Acompanhamento contínuo, métricas claras e ajustes até o sistema rodar sozinho.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ POR QUE A IACONTEC ═══ -->
+  <div id="diferenciais" class="section-wrap">
+    <div class="inner">
+      <p class="section-label reveal">Por que a IAContec</p>
+      <h2 class="reveal">A diferença que você <em>vai sentir</em> desde o primeiro contato.</h2>
+      <div style="overflow-x:auto;margin-top:0">
+        <table class="comparison-table reveal">
+          <thead>
+            <tr>
+              <th>O que a maioria das agências faz</th>
+              <th>O que a IAContec faz</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Entrega post e relatório</td>
+              <td>Entrega estrutura e resultado</td>
+            </tr>
+            <tr>
+              <td>Foca em curtidas e seguidores</td>
+              <td>Foca em cliente e receita</td>
+            </tr>
+            <tr>
+              <td>Proposta genérica para qualquer negócio</td>
+              <td>Solução personalizada para negócio local</td>
+            </tr>
+            <tr>
+              <td>Nunca abriu um negócio na vida</td>
+              <td>30 anos de experiência dentro do negócio</td>
+            </tr>
+            <tr>
+              <td>Desaparece depois do contrato</td>
+              <td>Parceiro de longo prazo no crescimento</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ OBJEÇÕES ═══ -->
+  <div id="objecoes" class="section-wrap alt">
+    <div class="inner">
+      <p class="section-label reveal">Suas dúvidas</p>
+      <h2 class="reveal">A gente sabe o que você <em>está pensando.</em></h2>
+      <div class="objection-list">
+        <div class="objection reveal">
+          <div class="objection-q">Já tentei agência antes e joguei dinheiro fora.</div>
+          <div class="objection-a">A gente ouve isso todo dia. Porque a maioria das agências não entende negócio local — entende de marketing. São coisas diferentes. A IAContec foi criada por quem viveu dentro do negócio, não de fora.</div>
+        </div>
+        <div class="objection reveal">
+          <div class="objection-q">Meu negócio é pequeno demais.</div>
+          <div class="objection-a">Perfeito. É exatamente agora, antes de crescer no improviso, que a estrutura faz mais diferença. Grandes empresas têm resultado porque têm sistema — não o contrário.</div>
+        </div>
+        <div class="objection reveal">
+          <div class="objection-q">Não tenho tempo para acompanhar.</div>
+          <div class="objection-a">Esse é o ponto. Você não precisa acompanhar. A gente cuida. Você recebe relatório claro e objetivo, sem precisar entender de tecnologia.</div>
+        </div>
+        <div class="objection reveal">
+          <div class="objection-q">Não tenho orçamento para isso agora.</div>
+          <div class="objection-a">Entendemos. Por isso começamos com um diagnóstico gratuito — para você ver exatamente o que está perdendo hoje por falta de estrutura. Aí você decide se faz sentido avançar.</div>
+        </div>
+        <div class="objection reveal">
+          <div class="objection-q">Como sei que vai funcionar para o meu tipo de negócio?</div>
+          <div class="objection-a">Porque antes de propor qualquer coisa, a gente entende o seu negócio a fundo. Nada genérico. Nada que não faça sentido para a sua realidade.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ URGÊNCIA ═══ -->
+  <div id="urgencia">
+    <div class="inner">
+      <div class="badge reveal">Atenção</div>
+      <h2 class="reveal" style="margin-top:16px;">Aceitamos um número <em style="color:var(--accent-light)">limitado</em> de novos clientes por mês.</h2>
+      <p class="reveal">Se você chegou até aqui, provavelmente já sabe que precisa mudar alguma coisa. A questão é: quando?</p>
+      <div class="urgency-callout reveal">
+        Cada mês sem estrutura é mais um mês perdendo cliente, dinheiro e posição para o concorrente.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <div id="cta-final">
+    <div class="inner">
+      <p class="section-label reveal">Próximo passo</p>
+      <h2 class="reveal"><em>Chega de perder cliente</em> por falta de processo.</h2>
+      <p class="sub reveal">Agende agora seu diagnóstico gratuito. A gente analisa seu negócio, identifica os pontos de perda e apresenta o que pode ser resolvido.</p>
+      <a href="#" class="cta-btn reveal" style="margin-top:36px;">
+        Quero meu diagnóstico gratuito
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="microcopy reveal">Sem compromisso. Sem enrolação. Sem proposta genérica.</p>
+      <span class="vagas reveal">Vagas limitadas por mês. Garanta a sua.</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <strong>IAContec</strong> — Automação total para negócio local.</p>
+  </footer>
+
+  <script>
+    // Animações de entrada
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 70);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Accordion objeções
+    document.querySelectorAll('.objection-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.objection');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.objection.open').forEach(o => o.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
